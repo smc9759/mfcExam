@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "DlgImage.h"
 
 // CgPrjDlg dialog
 class CgPrjDlg : public CDialogEx
@@ -11,6 +11,7 @@ class CgPrjDlg : public CDialogEx
 // Construction
 public:
 	CgPrjDlg(CWnd* pParent = NULL);	// standard constructor
+
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
@@ -33,4 +34,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButton1();
+	CDlgImage *m_pDlgImage;
+	void callFunc(int n);
+	afx_msg void OnDestroy();
 };

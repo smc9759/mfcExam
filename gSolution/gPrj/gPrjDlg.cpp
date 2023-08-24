@@ -10,7 +10,7 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
+#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
 
 // CAboutDlg dialog used for App About
 
@@ -30,6 +30,8 @@ public:
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnDestroy();
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -42,6 +44,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -65,6 +68,7 @@ BEGIN_MESSAGE_MAP(CgPrjDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CgPrjDlg::OnBnClickedButton1)
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -100,6 +104,11 @@ BOOL CgPrjDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+
+	m_pDlgImage = new CDlgImage;
+	m_pDlgImage->Create(IDD_DLGIMAGE, this);
+	m_pDlgImage->ShowWindow(SW_SHOW);
+
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -157,5 +166,32 @@ HCURSOR CgPrjDlg::OnQueryDragIcon()
 
 void CgPrjDlg::OnBnClickedButton1()
 {
-	// TODO: Add your control notification handler code here
+	//CDlgImage dlg;
+	//dlg.DoModal();
+}
+
+
+void CAboutDlg::OnDestroy()
+{
+	CDialogEx::OnDestroy();
+
+
+	// TODO: Add your message handler code here
+}
+
+
+void CgPrjDlg::OnDestroy()
+{
+	CDialogEx::OnDestroy();
+
+	delete m_pDlgImage;
+	// TODO: Add your message handler code here
+}
+
+#include <iostream>
+
+void CgPrjDlg::callFunc(int n)
+{
+	int nData = n;
+	std::cout << n << std::endl;
 }

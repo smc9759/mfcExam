@@ -1,6 +1,3 @@
-﻿  stdafx.cpp
-  gPrjDlg.cpp
-  gPrj.cpp
-  Generating Code...
+﻿  DlgImage.cpp
   gPrj.vcxproj -> C:\Project\mfcExam\gSolution\Debug\gPrj.exe
   gPrj.vcxproj -> C:\Project\mfcExam\gSolution\Debug\gPrj.pdb (Partial PDB)
