@@ -29,10 +29,9 @@ public:
 	afx_msg void OnBnClickedBtnUpParent();
 	virtual BOOL OnInitDialog();
 
-
+private:
+	void InitImage();
+	void drawData(CDC* pDC);
 public:
 	afx_msg void OnPaint();
-	void InitImage();
-private:
-	void drawData(CDC *pDC);
 };

@@ -112,8 +112,7 @@ BOOL CgPrjDlg::OnInitDialog()
 	m_pDlgImage = new CDlgImage;
 	m_pDlgImage->Create(IDD_DLGIMAGE, this);
 	m_pDlgImage->ShowWindow(SW_SHOW);
-	m_pDlgImage->MoveWindow(0, 0, 640, 480);
-	
+
 	m_pDlgImgResult = new CDlgImage;
 	m_pDlgImgResult->Create(IDD_DLGIMAGE, this);
 	m_pDlgImgResult->ShowWindow(SW_SHOW);
