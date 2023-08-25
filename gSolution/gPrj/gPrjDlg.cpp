@@ -70,6 +70,7 @@ BEGIN_MESSAGE_MAP(CgPrjDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_WM_DESTROY()
 	ON_BN_CLICKED(ID_BTN_TEST, &CgPrjDlg::OnBnClickedBtnTest)
+	ON_BN_CLICKED(ID_BTN_PROCESS, &CgPrjDlg::OnBnClickedBtnProcess)
 END_MESSAGE_MAP()
 
 
@@ -225,18 +226,14 @@ void CgPrjDlg::OnBnClickedBtnTest()
 
 	//memset(fm, 0, 640 * 480);
 	int nIndex = 0;
-	int nSum = 0;
+	int nTh = 100;
 	for (int j = 0; j < nHeight; j++) {
 		for (int i = 0; i < nWidth; i++) {
-			if (fm[j*nPitch + i] != 0)
+			if (fm[j*nPitch + i] > nTh)
 			{
-				//cout << i<< "." << j << endl;
-
-				//nSum++;
 				if (m_pDlgImgResult->m_nDataCount < 100)
 				{
-					cout << nIndex << ":" << i << "." << j << endl;
-
+					//cout << nIndex << ":" << i << "." << j << endl;
 					m_pDlgImgResult->m_ptData[nIndex].x = i;
 					m_pDlgImgResult->m_ptData[nIndex].y = j;
 					m_pDlgImgResult->m_nDataCount = ++nIndex;
@@ -245,8 +242,22 @@ void CgPrjDlg::OnBnClickedBtnTest()
 			}
 		}
 	}
-	//cout << nSum << endl;
 
 	m_pDlgImage->Invalidate();
 	m_pDlgImgResult->Invalidate();
+}
+
+#include "Process.h"
+#include <chrono> //c++ 11
+void CgPrjDlg::OnBnClickedBtnProcess()
+{
+	// TODO: Add your control notification handler code here
+	CProcess	process;
+	//Variable type undefined
+	auto start = std::chrono::system_clock::now();
+	int nRet = process.getStarInfo(&m_pDlgImage->m_image, 100);
+	auto end = std::chrono::system_clock::now();
+	auto millisec = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+	cout << nRet << "\t" << millisec.count() << endl;
 }

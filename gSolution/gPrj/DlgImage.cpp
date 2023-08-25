@@ -72,8 +72,9 @@ void CDlgImage::OnPaint()
 }
 void CDlgImage::InitImage()
 {
-	int nWidth = 640;
-	int nHeight = 480;
+	//4K * 10 
+	int nWidth = 640;//4096*10;
+	int nHeight = 480;//4096*10;
 	int nBpp = 8;
 
 	m_image.Create(nWidth, -nHeight, nBpp);
@@ -103,7 +104,7 @@ void CDlgImage::drawData(CDC *pDC)
 	for (int i = 0; i < m_nDataCount; i++) {
 		//info of top left and bottom right
 		rect.SetRect(m_ptData[i], m_ptData[i]);
-		rect.InflateRect(2, 2);
+		rect.InflateRect(1, 1);
 		pDC->Ellipse(rect);
 	
 	}
