@@ -97,7 +97,7 @@ void CDlgImage::drawData(CDC *pDC)
 {
 	CRect rect(0, 0, 100, 100);
 	CPen pen;
-	pen.CreatePen(PS_SOLID, 1, RGB(0xff, 0, 0));
+	pen.CreatePen(PS_SOLID, 1, COLOR_RED);
 	CPen* pOldPen = pDC->SelectObject(&pen);
 	//빨간펜 만들고 저장
 	for (int i = 0; i < m_nDataCount; i++) {
