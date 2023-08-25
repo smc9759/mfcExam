@@ -92,3 +92,20 @@ void CDlgImage::InitImage()
 	memset(fm, 0xff, nWidth*nHeight);
 
 }
+
+void CDlgImage::drawData(CDC *pDC)
+{
+	CRect rect(0, 0, 100, 100);
+	CPen pen;
+	pen.CreatePen(PS_SOLID, 1, RGB(0xff, 0, 0));
+	CPen* pOldPen = pDC->SelectObject(&pen);
+	//빨간펜 만들고 저장
+	for (int i = 0; i < m_nDataCount; i++) {
+		//info of top left and bottom right
+		rect.SetRect(m_ptData[i], m_ptData[i]);
+		rect.InflateRect(2, 2);
+		pDC->Ellipse(rect);
+	
+	}
+	pDC->SelectObject(pOldPen);
+}

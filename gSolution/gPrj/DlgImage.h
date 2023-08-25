@@ -14,7 +14,8 @@ public:
 	CImage	m_image;
 
 	CWnd* m_pParent;
-
+	int m_nDataCount = 0;
+	CPoint m_ptData[100];
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_DLGIMAGE };
