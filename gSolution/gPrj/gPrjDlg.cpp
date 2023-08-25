@@ -13,6 +13,7 @@
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
 
 // CAboutDlg dialog used for App About
+using namespace std;
 
 class CAboutDlg : public CDialogEx
 {
@@ -67,8 +68,8 @@ BEGIN_MESSAGE_MAP(CgPrjDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED(IDC_BUTTON1, &CgPrjDlg::OnBnClickedButton1)
 	ON_WM_DESTROY()
+	ON_BN_CLICKED(ID_BTN_TEST, &CgPrjDlg::OnBnClickedBtnTest)
 END_MESSAGE_MAP()
 
 
@@ -105,9 +106,17 @@ BOOL CgPrjDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 
+	MoveWindow(0, 0, 1280, 800);
+
 	m_pDlgImage = new CDlgImage;
 	m_pDlgImage->Create(IDD_DLGIMAGE, this);
 	m_pDlgImage->ShowWindow(SW_SHOW);
+	m_pDlgImage->MoveWindow(0, 0, 640, 480);
+	
+	m_pDlgImgResult = new CDlgImage;
+	m_pDlgImgResult->Create(IDD_DLGIMAGE, this);
+	m_pDlgImgResult->ShowWindow(SW_SHOW);
+	m_pDlgImgResult->MoveWindow(640, 0, 640, 480);
 
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -164,11 +173,11 @@ HCURSOR CgPrjDlg::OnQueryDragIcon()
 
 
 
-void CgPrjDlg::OnBnClickedButton1()
-{
-	//CDlgImage dlg;
-	//dlg.DoModal();
-}
+//void CgPrjDlg::OnBnClickedButton1()
+//{
+//	//CDlgImage dlg;
+//	//dlg.DoModal();
+//}
 
 
 void CAboutDlg::OnDestroy()
@@ -184,7 +193,8 @@ void CgPrjDlg::OnDestroy()
 {
 	CDialogEx::OnDestroy();
 
-	delete m_pDlgImage;
+	if (m_pDlgImage) delete m_pDlgImage;
+	if (m_pDlgImgResult) delete m_pDlgImgResult;
 	// TODO: Add your message handler code here
 }
 
@@ -194,4 +204,37 @@ void CgPrjDlg::callFunc(int n)
 {
 	int nData = n;
 	std::cout << n << std::endl;
+}
+
+
+void CgPrjDlg::OnBnClickedBtnTest()
+{
+	unsigned char* fm = (unsigned char*)m_pDlgImage->m_image.GetBits();
+
+	int nWidth = m_pDlgImage->m_image.GetWidth();
+	int nHeight =m_pDlgImage->m_image.GetHeight();
+	int nPitch = m_pDlgImage->m_image.GetPitch();
+
+	for (int k = 0; k < 100; k++) {
+		int x = rand() % nWidth;
+		int y = rand() % nHeight;
+		fm[ y * nPitch + x] = 0;
+	}
+
+	//memset(fm, 0, 640 * 480);
+	int nSum = 0;
+	for (int j = 0; j < nHeight; j++) {
+		for (int i = 0; i < nWidth; i++) {
+			if (fm[j*nPitch + i] == 0)
+			{
+				cout << i<< "." << j << endl;
+
+				nSum++;
+
+			}
+		}
+	}
+	cout << nSum << endl;
+
+	m_pDlgImage->Invalidate();
 }

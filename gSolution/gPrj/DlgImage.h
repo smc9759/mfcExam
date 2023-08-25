@@ -11,6 +11,8 @@ public:
 	CDlgImage(CWnd* pParent = NULL);   // standard constructor
 	virtual ~CDlgImage();
 
+	CImage	m_image;
+
 	CWnd* m_pParent;
 
 // Dialog Data
@@ -24,4 +26,12 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedBtnUpParent();
+	virtual BOOL OnInitDialog();
+
+
+public:
+	afx_msg void OnPaint();
+	void InitImage();
+private:
+	void drawData(CDC *pDC);
 };

@@ -33,8 +33,10 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedButton1();
+//	afx_msg void OnBnClickedButton1();
 	CDlgImage *m_pDlgImage;
+	CDlgImage *m_pDlgImgResult;
 	void callFunc(int n);
 	afx_msg void OnDestroy();
+	afx_msg void OnBnClickedBtnTest();
 };
