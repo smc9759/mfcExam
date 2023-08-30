@@ -317,7 +317,14 @@ void CgPrjDlg::OnBnClickedBtnGetData()
 
 }
 #include <thread>
-
+// CgPrjDlg:: 이게 없으면 전역으로 선언한다는 의미이다
+//함수 호출보다 아래에 있으면 못찾는다
+void threadProcess(CWnd* pParent, CRect rect) 
+{
+	CgPrjDlg pWnd = (CgPrjDlg*)pParent;
+	
+	//pWnd->processImg
+}
 void CgPrjDlg::OnBnClickedBtnThread()
 {
 	auto start = std::chrono::system_clock::now();
@@ -331,10 +338,19 @@ void CgPrjDlg::OnBnClickedBtnThread()
 		rt[k].OffsetRect(nImgSize* (k % 2), nImgSize * (int)( k / 2 ));
 	}
 
+	thread _thread0(threadProcess, this, rt[0]);
 
 
 	auto end = std::chrono::system_clock::now();
 	auto millisec = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
 	cout << millisec.count() << endl;
+}
+
+int CgPrjDlg::processImg(CRect rect) {
+	CProcess process;
+
+	process.getStarInfo(&m_pDlgImage->m_image, 0, rect);
+
+	return 0;
 }
