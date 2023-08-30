@@ -6,6 +6,8 @@
 #include "gPrj.h"
 #include "gPrjDlg.h"
 #include "afxdialogex.h"
+#include "Process.h"
+#include <chrono> //c++ 11
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -73,6 +75,7 @@ BEGIN_MESSAGE_MAP(CgPrjDlg, CDialogEx)
 	ON_BN_CLICKED(ID_BTN_PROCESS, &CgPrjDlg::OnBnClickedBtnProcess)
 	ON_BN_CLICKED(ID_BTN_MAKE_PATTERN, &CgPrjDlg::OnBnClickedBtnMakePattern)
 	ON_BN_CLICKED(ID_BTN_GET_DATA, &CgPrjDlg::OnBnClickedBtnGetData)
+	ON_BN_CLICKED(ID_BTN_THREAD, &CgPrjDlg::OnBnClickedBtnThread)
 END_MESSAGE_MAP()
 
 
@@ -248,8 +251,6 @@ void CgPrjDlg::OnBnClickedBtnTest()
 	m_pDlgImgResult->Invalidate();
 }
 
-#include "Process.h"
-#include <chrono> //c++ 11
 void CgPrjDlg::OnBnClickedBtnProcess()
 {
 	// TODO: Add your control notification handler code here
@@ -314,4 +315,15 @@ void CgPrjDlg::OnBnClickedBtnGetData()
 
 	cout << dCenterX << "\t" << dCenterY << endl;
 
+}
+
+
+void CgPrjDlg::OnBnClickedBtnThread()
+{
+	auto start = std::chrono::system_clock::now();
+
+	auto end = std::chrono::system_clock::now();
+	auto millisec = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+	cout << millisec.count() << endl;
 }
