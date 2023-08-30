@@ -316,11 +316,22 @@ void CgPrjDlg::OnBnClickedBtnGetData()
 	cout << dCenterX << "\t" << dCenterY << endl;
 
 }
-
+#include <thread>
 
 void CgPrjDlg::OnBnClickedBtnThread()
 {
 	auto start = std::chrono::system_clock::now();
+
+	int nImgSize = 4096 * 4;
+	//8개의 반. 화면을 4분할 하기 위해서
+	CRect rect(0, 0, nImgSize, nImgSize);
+	CRect rt[4];
+	for (int k = 0; k < 4; k++) {
+		rt[k] = rect;
+		rt[k].OffsetRect(nImgSize* (k % 2), nImgSize * (int)( k / 2 ));
+	}
+
+
 
 	auto end = std::chrono::system_clock::now();
 	auto millisec = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);

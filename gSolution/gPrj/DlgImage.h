@@ -1,22 +1,22 @@
 #pragma once
 
-#define MAX_POINT 100
-// CDlgImage dialog
+#define MAX_POINT	1000
+// CDlgImage 대화 상자입니다.
 
 class CDlgImage : public CDialogEx
 {
 	DECLARE_DYNAMIC(CDlgImage)
 
 public:
-	CDlgImage(CWnd* pParent = NULL);   // standard constructor
+	CDlgImage(CWnd* pParent = NULL);   // 표준 생성자입니다.
 	virtual ~CDlgImage();
 
-	CImage	m_image;
-
 	CWnd* m_pParent;
+	CImage m_image;
 	int m_nDataCount = 0;
 	CPoint m_ptData[MAX_POINT];
-// Dialog Data
+
+// 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_DLGIMAGE };
 #endif

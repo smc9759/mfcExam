@@ -47,40 +47,22 @@ void CDlgImage::OnBnClickedBtnUpParent()
 BOOL CDlgImage::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-
-	// TODO:  Add extra initialization here
+	SetWindowText(_T("Origin Image"));
 	MoveWindow(0, 0, 640, 480);
-
 	InitImage();
 
-
 	return TRUE;  // return TRUE unless you set the focus to a control
-				  // EXCEPTION: OCX Property Pages should return FALSE
+				  // µ¶A: OCX ?? ?·¡»¡“e FALSEŸi ¤eÑÅ?´¡ ?“¡”a.
 }
 
-
-void CDlgImage::OnPaint()
-{
-	CPaintDC dc(this); // device context for painting
-					   // TODO: Add your message handler code here
-					   // Do not call CDialogEx::OnPaint() for painting messages
-	if (m_image)
-	{
-		m_image.Draw(dc, 0, 0);
-	}
-	drawData(&dc);
-}
 void CDlgImage::InitImage()
 {
-	//4K * 10 
-	int nWidth = 4096*5;
-	int nHeight = 4096*5;
+	int nWidth = 4096 * 7;
+	int nHeight = 4096 * 7;
 	int nBpp = 8;
 
 	m_image.Create(nWidth, -nHeight, nBpp);
-
-	if (nBpp == 8)
-	{
+	if (nBpp == 8) {
 		static RGBQUAD rgb[256];
 		for (int i = 0; i < 256; i++)
 			rgb[i].rgbRed = rgb[i].rgbGreen = rgb[i].rgbBlue = i;
@@ -91,22 +73,30 @@ void CDlgImage::InitImage()
 	unsigned char* fm = (unsigned char*)m_image.GetBits();
 
 	memset(fm, 0xff, nWidth*nHeight);
-
 }
 
-void CDlgImage::drawData(CDC *pDC)
+
+void CDlgImage::OnPaint()
 {
-	CRect rect(0, 0, 100, 100);
+	CPaintDC dc(this); // device context for painting
+					   // TODO: µa‹¡µA ¡A?»¡ ÀáŸ¡‹¡ Å¡—aŸi Âˆa?“¡”a.
+					   // ‹aŸ¡‹¡ ¡A?»¡µA ”?¬á“e CDialogEx::OnPaint()·i(Ÿi) Ñ¡Â‰?»¡  a??µ¡.
+	if (m_image)
+		m_image.Draw(dc, 0, 0);
+
+	drawData(&dc);
+}
+
+void CDlgImage::drawData(CDC* pDC)
+{
+	CRect rect;
 	CPen pen;
-	pen.CreatePen(PS_SOLID, 1, COLOR_RED);
+	pen.CreatePen(PS_SOLID, 2, COLOR_RED);
 	CPen* pOldPen = pDC->SelectObject(&pen);
-	//»¡°£Ææ ¸¸µé°í ÀúÀå
 	for (int i = 0; i < m_nDataCount; i++) {
-		//info of top left and bottom right
 		rect.SetRect(m_ptData[i], m_ptData[i]);
-		rect.InflateRect(1, 1);
+		rect.InflateRect(1,1);
 		pDC->Ellipse(rect);
-	
 	}
 	pDC->SelectObject(pOldPen);
 }
